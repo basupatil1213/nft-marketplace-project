@@ -1274,7 +1274,7 @@ const deployedContracts = {
   },
   11155111: {
     NFTCollection: {
-      address: "0x9a185acbaead67ddc163987a7321d50aa3456c36",
+      address: "0xcf46384362d45da3c443b4468e5f2ef17b1149db",
       abi: [
         {
           type: "constructor",
@@ -1841,7 +1841,7 @@ const deployedContracts = {
       },
     },
     ContractRegistry: {
-      address: "0x1557b5858afece3f9026c129861b74a2572aa673",
+      address: "0x263a31fcf8155c8afd1b1a17e95da760616b3742",
       abi: [
         {
           type: "function",
@@ -1993,7 +1993,7 @@ const deployedContracts = {
       inheritedFunctions: {},
     },
     NFTAuction: {
-      address: "0x683af6845cb2647cbd41c95804bd7b1901da81e9",
+      address: "0x4b11b9d5bf2d9c318e8d0a739699779c5ad532c2",
       abi: [
         {
           type: "constructor",
