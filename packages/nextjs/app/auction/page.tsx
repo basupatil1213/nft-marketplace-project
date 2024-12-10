@@ -28,9 +28,7 @@ function CreateAuctionComponent() {
   const tokenid = searchParams.get("tokenid");
 
   const fetchAuctionImage = async () => {
-    if (!contractaddress || !tokenid || !provider) {
-      return;
-    }
+    if (!contractaddress || !tokenid || !provider) return;
 
     try {
       const signer = provider.getSigner();
@@ -128,83 +126,85 @@ function CreateAuctionComponent() {
   };
 
   return (
-    <>
-      <div className="flex flex-col items-center pt-10">
-        <h1 className="block text-4xl font-bold text-base-content mb-6">Create Auction</h1>
-        <div className="shadow-md p-8 w-full max-w-lg flex flex-col bg-base-100 rounded-3xl">
-          <div className="flex flex-col items-start mb-6 w-full max-w-lg">
-            <p className="text-lg text-base-content text-center">
-              <strong>Contract Address:</strong> {contractaddress?.slice(0, 8)}...{contractaddress?.slice(-6)}
-            </p>
-            <p className="text-lg text-base-content text-center">
-              <strong>Token ID:</strong> {tokenid}
-            </p>
-          </div>
-          {imageUrl && (
-            <div className="flex justify-center items-center mb-6">
-              <img src={imageUrl} alt="NFT Image" className="w-full h-64 object-cover rounded-lg shadow-md" />
-            </div>
-          )}
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Starting Bid</label>
-            <div className="flex items-center mb-6">
-              <input
-                type="number"
-                placeholder="Enter Collection Name"
-                value={startingBid}
-                onChange={e => setStartingBid(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg"
-              />
-              <span className="ml-2 text-base-content">ETH</span>
-            </div>
-          </div>
-          <div className="mb-6">
-            <label className="block font-semibold mb-2">Duration</label>
-            <div className="flex items-center">
-              <input
-                type="number"
-                placeholder="HH"
-                value={hours}
-                onChange={e => setHours(e.target.value)}
-                className="w-full px-4 py-2 border rounded-l-lg text-center"
-              />
-              <span className="px-2 py-2 font-semibold">:</span>
-              <input
-                type="number"
-                placeholder="MM"
-                value={minutes}
-                onChange={e => setMinutes(e.target.value)}
-                className="w-full px-4 py-2 border text-center"
-              />
-              <span className="px-2 py-2 font-semibold">:</span>
-              <input
-                type="number"
-                placeholder="SS"
-                value={seconds}
-                onChange={e => setSeconds(e.target.value)}
-                className="w-full px-4 py-2 border rounded-r-lg text-center"
-              />
-            </div>
-          </div>
-          <button
-            onClick={handleCreateAuction}
-            disabled={creatingAuction}
-            className={`w-full btn btn-primary font-bold flex items-center justify-center ${
-              creatingAuction ? "opacity-50 cursor-not-allowed" : ""
-            }`}
-          >
-            {creatingAuction ? "Creating Auction..." : "Create Auction"}
-          </button>
-          {status && <p className="text-sm text-center mt-4">{status}</p>}
+    <div
+      className="min-h-screen flex justify-center items-center py-10"
+      style={{
+        background: "linear-gradient(to bottom right, #1e3a8a, #4f46e5, #818cf8)",
+      }}
+    >
+      <div className="bg-white shadow-2xl rounded-2xl w-full max-w-2xl p-8">
+        <h1 className="text-3xl font-bold text-center mb-6 text-gray-900">Create an Auction</h1>
+        <div className="mb-4">
+          <p className="text-lg font-semibold text-gray-700">
+            <span className="font-bold">Contract Address:</span> {contractaddress?.slice(0, 6)}...
+            {contractaddress?.slice(-4)}
+          </p>
+          <p className="text-lg font-semibold text-gray-700">
+            <span className="font-bold">Token ID:</span> {tokenid}
+          </p>
         </div>
+        {imageUrl && (
+          <div className="mb-6">
+            <img src={imageUrl} alt="NFT" className="w-full h-64 object-cover rounded-md shadow-sm" />
+          </div>
+        )}
+        <div className="mb-4">
+          <label className="block text-gray-800 font-medium mb-2">Starting Bid (ETH)</label>
+          <input
+            type="number"
+            placeholder="Enter starting bid"
+            value={startingBid}
+            onChange={(e) => setStartingBid(e.target.value)}
+            className="block w-full px-4 py-2 border rounded-lg focus:ring focus:ring-blue-200 focus:outline-none"
+          />
+        </div>
+        <div className="mb-6">
+          <label className="block text-gray-800 font-medium mb-2">Duration (HH:MM:SS)</label>
+          <div className="flex items-center space-x-2">
+            <input
+              type="number"
+              placeholder="HH"
+              value={hours}
+              onChange={(e) => setHours(e.target.value)}
+              className="w-20 px-4 py-2 border rounded-lg text-center focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+            <span>:</span>
+            <input
+              type="number"
+              placeholder="MM"
+              value={minutes}
+              onChange={(e) => setMinutes(e.target.value)}
+              className="w-20 px-4 py-2 border rounded-lg text-center focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+            <span>:</span>
+            <input
+              type="number"
+              placeholder="SS"
+              value={seconds}
+              onChange={(e) => setSeconds(e.target.value)}
+              className="w-20 px-4 py-2 border rounded-lg text-center focus:ring focus:ring-blue-200 focus:outline-none"
+            />
+          </div>
+        </div>
+        <button
+          onClick={handleCreateAuction}
+          disabled={creatingAuction}
+          className={`w-full py-3 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600 transition ${
+            creatingAuction ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+        >
+          {creatingAuction ? "Creating Auction..." : "Create Auction"}
+        </button>
+        {status && <p className="mt-4 text-center text-sm text-gray-700">{status}</p>}
       </div>
-    </>
+    </div>
   );
+  
 }
 
 export default function CreateAuction() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center">Loading...</div>}>
       <CreateAuctionComponent />
     </Suspense>
   );

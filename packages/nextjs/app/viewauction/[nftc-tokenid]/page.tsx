@@ -182,7 +182,11 @@ export default function AuctionDetails({ params }: { params: { [key: string]: st
     <div className="flex flex-col items-center pt-10">
       <h1 className="block text-4xl font-bold text-base-content mb-6">Auction Details</h1>
 
-      {loading && <p className="text-lg font-semibold text-base-content">Loading auction details...</p>}
+      {loading && (
+        <div className="flex justify-center items-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+        </div>
+      )}
 
       {!loading && details && (
         <div className="shadow-md p-8 w-full max-w-lg flex flex-col bg-base-100 rounded-3xl">
@@ -205,13 +209,13 @@ export default function AuctionDetails({ params }: { params: { [key: string]: st
             <strong>End Time:</strong>{" "}
             {details.endTime
               ? new Date(details.endTime * 1000).toLocaleString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })
               : ""}
           </p>
           <div className="mt-2">
@@ -226,7 +230,6 @@ export default function AuctionDetails({ params }: { params: { [key: string]: st
                 background="transparent"
                 play
                 numbers={remainingTime}
-              
               />
             </div>
           </div>
@@ -234,42 +237,45 @@ export default function AuctionDetails({ params }: { params: { [key: string]: st
             <strong>Settled:</strong> {details.settled ? "Yes" : "No"}
           </p>
           {!details.settled &&
-            (!isAuctionEnded
-              ? account !== details.seller &&
-              account !== details.highestBidder && (
-                <div className="mt-6">
-                  <input
-                    type="text"
-                    placeholder="Enter your bid in ETH"
-                    value={bidAmount}
-                    onChange={e => setBidAmount(e.target.value)}
-                    className="border rounded px-4 py-2 w-full mb-4"
-                  />
+            (!isAuctionEnded ? (
+              <div className="mt-6">
+                <input
+                  type="text"
+                  placeholder="Enter your bid in ETH"
+                  value={bidAmount}
+                  onChange={e => setBidAmount(e.target.value)}
+                  className="input input-bordered w-full mb-4"
+                />
+                <p className="text-sm text-base-content mb-4">
+                  Note: Your bid must be higher than the current highest bid.
+                </p>
+                {ethToUsdRate && bidAmount && (
                   <p className="text-sm text-base-content mb-4">
-                    Note: Your bid must be higher than the current highest bid.
+                    Equivalent USD: ~${(parseFloat(bidAmount) * ethToUsdRate).toFixed(2)}
                   </p>
-                  {ethToUsdRate && bidAmount && (
-                    <p className="text-sm text-base-content mb-4">
-                      Equivalent USD: ~${(parseFloat(bidAmount) * ethToUsdRate).toFixed(2)}
-                    </p>
-                  )}
-                  <button onClick={handleBid} className="btn btn-primary w-full">
-                    Place Bid
-                  </button>
-                </div>
-              )
-              : (account === details.seller || account === details.highestBidder) && (
+                )}
+                <button onClick={handleBid} className="btn btn-primary w-full">
+                  Place Bid
+                </button>
+              </div>
+            ) : (
+              (account === details.seller || account === details.highestBidder) && (
                 <button onClick={handleSettleAuction} className="btn btn-secondary w-full mt-4">
                   Settle Auction
                 </button>
-              ))}
+              )
+            ))}
         </div>
       )}
 
       {!loading && !details && (
         <p className="text-lg font-semibold text-base-content">No details found for this auction.</p>
       )}
-      {status && <p className="mt-4 text-sm text-center text-base-content">{status}</p>}
+      {status && (
+        <div className="mt-4 alert alert-info">
+          <span>{status}</span>
+        </div>
+      )}
     </div>
   );
 }

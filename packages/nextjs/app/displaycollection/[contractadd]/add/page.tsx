@@ -6,6 +6,8 @@ import { useWallet } from "../../../../hooks/useWallet";
 import { ethers } from "ethers";
 import { PinataSDK } from "pinata-web3";
 import { getContractStore } from "~~/services/contractStore";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const PINATA_JWT = process.env.NEXT_PUBLIC_PINATA_JWT || "";
 const PINATA_GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || "";
@@ -18,6 +20,7 @@ export default function AddToCollection({ params }: { params: { contractadd: str
   const [image, setImage] = useState<File | null>(null);
   const [status, setStatus] = useState("");
   const [creatingNFT, setCreatingNFT] = useState(false);
+  const router = useRouter();
 
   const pinata = new PinataSDK({ pinataJwt: PINATA_JWT, pinataGateway: PINATA_GATEWAY_URL });
 
@@ -67,6 +70,11 @@ export default function AddToCollection({ params }: { params: { contractadd: str
       const receipt = await provider.waitForTransaction(tx.hash);
       if (receipt.status === 1) {
         setStatus("NFT minted successfully!");
+        toast.success("NFT minted successfully!");
+        setTimeout(() => {
+            router.push(`/displaycollection/${contractadd}/view`);
+            }
+        , 2000);
       } else {
         setStatus("Transaction failed. Please try again.");
       }
