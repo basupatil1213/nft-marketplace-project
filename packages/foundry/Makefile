@@ -3,7 +3,7 @@
 # setup wallet for anvil
 setup-anvil-wallet:
 	shx rm ~/.foundry/keystores/scaffold-eth-default 2>/dev/null; \
-	cast wallet import --private-key 0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6 --unsafe-password 'localhost' scaffold-eth-default
+	cast wallet import --private-key $(PRIVATE_KEY) --unsafe-password 'localhost' scaffold-eth-default
 
 # Start local chain
 chain: setup-anvil-wallet
@@ -22,7 +22,7 @@ deploy:
 	@if [ "$(RPC_URL)" = "localhost" ]; then \
 		forge script script/Deploy.s.sol --rpc-url localhost --password localhost --broadcast --legacy --ffi; \
 	else \
-		forge script script/Deploy.s.sol --rpc-url $(RPC_URL) --broadcast --legacy --ffi; \
+		forge script script/Deploy.s.sol --rpc-url $(RPC_URL) --private-key $(PRIVATE_KEY) --etherscan-api-key $(EHTERSCAN_API_KEY) --broadcast --legacy --ffi; \
 	fi
 
 # Build and deploy target
@@ -61,7 +61,15 @@ deploy-verify:
 	@if [ "$(RPC_URL)" = "localhost" ]; then \
 		forge script script/Deploy.s.sol --rpc-url localhost --password localhost --broadcast --legacy --ffi --verify; \
 	else \
-		forge script script/Deploy.s.sol --rpc-url $(RPC_URL) --broadcast --legacy --ffi --verify; \
+		dotenv -e .env -- \
+		forge script script/Deploy.s.sol \
+		--rpc-url https://virtual.sepolia.rpc.tenderly.co/51b14e03-e083-4804-a5ef-6fd056bd17bf \
+		--private-key $(PRIVATE_KEY)  \
+		--etherscan-api-key $(EHTERSCAN_API_KEY) \
+		--broadcast \
+		--verify \
+		--verifier-url https://virtual.sepolia.rpc.tenderly.co/51b14e03-e083-4804-a5ef-6fd056bd17bf/verify/etherscan \
+		--slow; \
 	fi
 	node scripts-js/generateTsAbis.js
 

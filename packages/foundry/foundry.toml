@@ -3,11 +3,14 @@ src = 'contracts'
 out = 'out'
 libs = ['lib']
 fs_permissions = [{ access = "read-write", path = "./"}]
+cbor_metadata=true
+
 
 [rpc_endpoints]
 default_network = "http://127.0.0.1:8545"
 localhost = "http://127.0.0.1:8545"
 
+tenderly = "https://virtual.sepolia.rpc.tenderly.co/51b14e03-e083-4804-a5ef-6fd056bd17bf"
 mainnet = "https://eth-mainnet.alchemyapi.io/v2/${ALCHEMY_API_KEY}"
 sepolia = "https://eth-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}"
 arbitrum = "https://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}"
@@ -30,6 +33,7 @@ pgnTestnet = "https://sepolia.publicgoods.network"
 [etherscan]
 polygonMumbai = { key = "${ETHERSCAN_API_KEY}" }
 sepolia = { key = "${ETHERSCAN_API_KEY}" }
+unknown_chain = { key = "${TENDERLY_ACCESS_KEY}", chain = 14567843534, url = "https://virtual.mainnet.rpc.tenderly.co/69523180-1db0-4f2d-9e03-2d8932cc72ef" }
 
 
 [fmt]

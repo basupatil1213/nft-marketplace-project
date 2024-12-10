@@ -42,5 +42,12 @@
   "packageManager": "yarn@3.2.3",
   "engines": {
     "node": ">=18.18.0"
+  },
+  "dependencies": {
+    "@ethersproject/providers": "^5.7.2",
+    "dotenv-cli": "^7.4.4",
+    "ethers": "^6.13.4",
+    "pinata-web3": "^0.5.2",
+    "react-flip-numbers": "^3.0.8"
   }
 }
