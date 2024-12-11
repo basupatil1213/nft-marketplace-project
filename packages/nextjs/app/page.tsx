@@ -108,7 +108,7 @@ const FeatureCard = ({
   return (
     <div className="flex flex-col bg-white shadow-lg px-6 py-8 text-center items-center max-w-sm rounded-3xl">
       <div className="mb-4">{icon}</div>
-      <h4 className="font-bold text-lg mb-2">{title}</h4>
+      <h4 className="font-bold text-lg mb-2 dark:text-black">{title}</h4>
       <p className="text-gray-600 mb-4">{description}</p>
       <Link href={link} className="text-primary hover:underline">
         Learn More
