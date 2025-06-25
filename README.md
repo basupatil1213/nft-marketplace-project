@@ -1,80 +1,90 @@
-# 🏗 Scaffold-ETH 2
+# 🖼️ NFT Marketplace Project
 
 <h4 align="center">
   <a href="https://docs.scaffoldeth.io">Documentation</a> |
   <a href="https://scaffoldeth.io">Website</a>
 </h4>
 
-🧪 An open-source, up-to-date toolkit for building decentralized applications (dapps) on the Ethereum blockchain. It's designed to make it easier for developers to create and deploy smart contracts and build user interfaces that interact with those contracts.
+A full-stack, open-source NFT Marketplace for creating, minting, auctioning, and trading NFTs on Ethereum. Built with Next.js, Foundry, RainbowKit, Wagmi, Viem, and Typescript.
 
-⚙️ Built using NextJS, RainbowKit, Foundry, Wagmi, Viem, and Typescript.
+## 🚀 Features
 
-- ✅ **Contract Hot Reload**: Your frontend auto-adapts to your smart contract as you edit it.
-- 🪝 **[Custom hooks](https://docs.scaffoldeth.io/hooks/)**: Collection of React hooks wrapper around [wagmi](https://wagmi.sh/) to simplify interactions with smart contracts with typescript autocompletion.
-- 🧱 [**Components**](https://docs.scaffoldeth.io/components/): Collection of common web3 components to quickly build your frontend.
-- 🔥 **Burner Wallet & Local Faucet**: Quickly test your application with a burner wallet and local faucet.
-- 🔐 **Integration with Wallet Providers**: Connect to different wallet providers and interact with the Ethereum network.
+- **Create NFT Collections:** Deploy your own ERC-721 NFT collections.
+- **Mint NFTs:** Mint NFTs with metadata stored on IPFS via Pinata.
+- **Auction NFTs:** List NFTs for auction, set starting bids and durations, and allow others to place bids.
+- **View & Bid on Auctions:** Browse all active auctions, view NFT details, and place bids.
+- **View Owned NFTs:** See all NFTs owned by your wallet, including those won in auctions.
+- **Block Explorer:** Explore local blockchain transactions and blocks.
+- **Smart Contract Registry:** All collections are registered and discoverable via a registry contract.
 
-![Debug Contracts tab](https://github.com/scaffold-eth/scaffold-eth-2/assets/55535804/b237af0c-5027-4849-a5c1-2e31495cccb1)
+## 🧩 Smart Contracts
 
-## Requirements
+- `NFTCollection.sol`: ERC-721 contract with minting and metadata support.
+- `NFTAuction.sol`: Handles auction creation, bidding, settlement, and fee distribution.
+- `ContractRegistry.sol`: Registers and tracks all NFT collections.
 
-Before you begin, you need to install the following tools:
+## 🖥️ Frontend Pages
 
+- `/mintCollection`: Deploy a new NFT collection.
+- `/displaycollection/[contractadd]/view`: View all NFTs in a collection and start auctions.
+- `/ownednfts`: View NFTs owned by the user and start auctions.
+- `/auction`: Create an auction for an NFT.
+- `/viewauction`: Browse and view all active auctions.
+- `/blockexplorer`: Explore local blockchain activity.
+
+## 🏁 Quickstart
+
+### Requirements
 - [Node (>= v18.18)](https://nodejs.org/en/download/)
 - Yarn ([v1](https://classic.yarnpkg.com/en/docs/install/) or [v2+](https://yarnpkg.com/getting-started/install))
 - [Git](https://git-scm.com/downloads)
 
-## Quickstart
+### Setup & Usage
 
-To get started with Scaffold-ETH 2, follow the steps below:
+1. **Install dependencies:**
+   ```bash
+   yarn install
+   ```
+2. **Run a local blockchain:**
+   ```bash
+   yarn chain
+   ```
+   This starts a local Ethereum network using Foundry. You can customize the network in `packages/foundry/foundry.toml`.
+3. **Deploy contracts:**
+   ```bash
+   yarn deploy
+   ```
+   Deploys the smart contracts to your local network. Contracts are in `packages/foundry/contracts` and deployment scripts in `packages/foundry/script`.
+4. **Start the frontend:**
+   ```bash
+   yarn start
+   ```
+   Visit your app at [http://localhost:3000](http://localhost:3000).
 
-1. Install dependencies if it was skipped in CLI:
+### Main User Flows
+- **Create a Collection:** Go to `/mintCollection` and deploy a new NFT collection.
+- **Mint NFTs:** Use the collection page to mint NFTs with IPFS metadata.
+- **Auction NFTs:** From your collection or owned NFTs, start an auction for any NFT you own.
+- **View & Bid on Auctions:** Browse `/viewauction` to see all active auctions and place bids.
+- **View Owned NFTs:** `/ownednfts` shows all NFTs you own, including those won in auctions.
+- **Block Explorer:** `/blockexplorer` lets you explore local blockchain activity.
 
-```
-cd my-dapp-example
-yarn install
-```
+### Development
+- Edit smart contracts in `packages/foundry/contracts`
+- Edit frontend pages in `packages/nextjs/app`
+- Edit deployment scripts in `packages/foundry/script`
 
-2. Run a local network in the first terminal:
+### Testing
+- Run smart contract tests with:
+  ```bash
+  yarn foundry:test
+  ```
 
-```
-yarn chain
-```
-
-This command starts a local Ethereum network using Foundry. The network runs on your local machine and can be used for testing and development. You can customize the network configuration in `packages/foundry/foundry.toml`.
-
-3. On a second terminal, deploy the test contract:
-
-```
-yarn deploy
-```
-
-This command deploys a test smart contract to the local network. The contract is located in `packages/foundry/contracts` and can be modified to suit your needs. The `yarn deploy` command uses the deploy script located in `packages/foundry/script` to deploy the contract to the network. You can also customize the deploy script.
-
-4. On a third terminal, start your NextJS app:
-
-```
-yarn start
-```
-
-Visit your app on: `http://localhost:3000`. You can interact with your smart contract using the `Debug Contracts` page. You can tweak the app config in `packages/nextjs/scaffold.config.ts`.
-
-Run smart contract test with `yarn foundry:test`
-
-- Edit your smart contracts in `packages/foundry/contracts`
-- Edit your frontend homepage at `packages/nextjs/app/page.tsx`. For guidance on [routing](https://nextjs.org/docs/app/building-your-application/routing/defining-routes) and configuring [pages/layouts](https://nextjs.org/docs/app/building-your-application/routing/pages-and-layouts) checkout the Next.js documentation.
-- Edit your deployment scripts in `packages/foundry/script`
-
-
-## Documentation
+## 📚 Documentation
 
 Visit our [docs](https://docs.scaffoldeth.io) to learn how to start building with Scaffold-ETH 2.
 
-To know more about its features, check out our [website](https://scaffoldeth.io).
+## 🤝 Contributing
 
-## Contributing to Scaffold-ETH 2
-
-We welcome contributions to Scaffold-ETH 2!
-
-Please see [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for more information and guidelines for contributing to Scaffold-ETH 2.
+We welcome contributions!
+See [CONTRIBUTING.MD](https://github.com/scaffold-eth/scaffold-eth-2/blob/main/CONTRIBUTING.md) for guidelines.
