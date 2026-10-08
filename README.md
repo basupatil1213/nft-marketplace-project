@@ -1,11 +1,8 @@
 # 🖼️ NFT Marketplace Project
 
-<h4 align="center">
-  <a href="https://docs.scaffoldeth.io">Documentation</a> |
-  <a href="https://scaffoldeth.io">Website</a>
-</h4>
+A full-stack, open-source NFT marketplace for creating, minting, auctioning, and trading NFTs on Ethereum. Built with Next.js, Foundry, RainbowKit, Wagmi, Viem, and TypeScript on top of [Scaffold-ETH 2](https://scaffoldeth.io) ([docs](https://docs.scaffoldeth.io)).
 
-A full-stack, open-source NFT Marketplace for creating, minting, auctioning, and trading NFTs on Ethereum. Built with Next.js, Foundry, RainbowKit, Wagmi, Viem, and Typescript.
+**Live frontend:** https://nft-marketplace-project-nextjs.vercel.app
 
 ## 🚀 Features
 
@@ -19,26 +16,29 @@ A full-stack, open-source NFT Marketplace for creating, minting, auctioning, and
 
 ## 🧩 Smart Contracts
 
+Located in `packages/foundry/contracts`:
+
 - `NFTCollection.sol`: ERC-721 contract with minting and metadata support.
 - `NFTAuction.sol`: Handles auction creation, bidding, settlement, and fee distribution.
 - `ContractRegistry.sol`: Registers and tracks all NFT collections.
-NFT Marketplace Project
 
-Overview
---------
-Full-stack NFT marketplace using Next.js frontend and Foundry smart contracts for on-chain logic. Supports minting, auctions and local chain development for testing.
+The Next.js frontend lives in `packages/nextjs`.
 
-Tech stack
-----------
-Next.js, Foundry, Typescript, Viem, Wagmi, RainbowKit
+## 🛠 Tech stack
 
-Quickstart
-----------
-1. yarn install
-2. yarn chain (start local Foundry chain)
-3. yarn deploy (deploy contracts locally)
-4. yarn start (run frontend)
+Next.js, TypeScript, Foundry (Solidity), Viem, Wagmi, RainbowKit, IPFS/Pinata
 
-Notes
------
-Contracts are located in `packages/foundry/contracts` and frontend in `packages/nextjs`.
+## ⚡ Quickstart
+
+```bash
+yarn install
+yarn chain    # start a local Foundry chain
+yarn deploy   # deploy the contracts locally (in a second terminal)
+yarn start    # run the frontend at http://localhost:3000
+```
+
+Run the contract tests with:
+
+```bash
+yarn test
+```
